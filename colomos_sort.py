@@ -21,6 +21,49 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import numpy as np
+
+
+def matrixsort_np(elements):
+    """Matrix sort (with numpy)."""
+
+    max_element = max(elements)
+    matrix = np.zeros((max_element + 1, len(elements)))
+    matrix[elements, np.arange(len(elements))] = elements
+
+    return matrix.sum(axis=1)
+
+
+def matrixsort(elements):
+    """Matrix sort."""
+    
+    max_element = max(elements)
+    matrix = [[0] * len(elements) for _ in range(max_element + 1)]
+
+    for i, element in enumerate(elements):
+        matrix[element][i] = element
+
+    row_sums = [sum(row) for row in matrix]
+
+    return row_sums
+
+
+def maxinsort(elements):
+    """Maxin sort (Max sort)."""
+    end = len(elements)
+    
+    while True:
+        m = elements.index(max(elements[:end]))
+        elements[end - 1], elements[m] = elements[m], elements[end - 1]
+                
+        end -= 1
+        
+        if end <= 1:
+            break
+        
+    
+    return elements
+
 
 def colomossort(elements):
     """Colomos sort."""
