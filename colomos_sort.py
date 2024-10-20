@@ -21,7 +21,63 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import math
 import numpy as np
+
+
+def ssortf(array, length, high, low):
+    """S. sort (Floats)."""
+    step = abs(math.ceil(low))
+    length = math.ceil(step + high + length)
+    subarray = [[0, []] for _ in range(length)]
+
+    for n in array:
+        index = math.ceil(n) + step
+
+        if isinstance(n, float):
+            subarray[index][1].append(n)
+        else:
+            subarray[index][0] += 1
+
+    auxarray = []
+
+    for n, (i, floats) in enumerate(subarray):
+        while i != 0:
+            auxarray.append(n - step)
+
+            if i <= 1:
+                break
+
+            i -= 1
+
+        if len(floats) != 0:
+            floats.sort()
+
+            auxarray += floats
+
+    return auxarray
+
+
+def ssort(array, length, high, low):
+    """S. sort."""
+    step = abs(low)
+    subarray = [0] * (step + high + length)
+
+    for n in array:
+        subarray[n + step] += 1
+
+    auxarray = []
+
+    for n, i in enumerate(subarray):
+        while i != 0:
+            auxarray.append(n - step)
+
+            if i <= 1:
+                break
+
+            i -= 1
+
+    return auxarray
 
 
 def matrixsort_np(elements):
